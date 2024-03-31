@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ATFS Note</title>
+<!-- Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  body {
+    margin: 0;
+    padding-top: 56px;
+    background-color: #fdfd96;
+  }
+  .navbar {
+    background-color: #f8f9fa;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+  }
+  .notepad {
+    height: calc(100vh - 56px);
+    width: 100%;
+    background-color: #fdfd96;
+    border: none;
+    font-family: monospace;
+    line-height: 1.6;
+    padding: 20px;
+    box-sizing: border-box;
+    resize: none;
+    outline: none;
+  }
+</style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <span class="navbar-brand mb-0 h1">ATFS Note</span>
+    <button class="btn btn-outline-secondary" type="button" id="shortButton">Short</button>
+  </div>
+</nav>
+
+<textarea class="notepad" placeholder="Type your note here..." id="noteField"></textarea>
+
+<!-- Modal -->
+<div class="modal fade" id="codeModal" tabindex="-1" aria-labelledby="codeModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="codeModalLabel">Your Code</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p id="codeDisplay">Code will appear here</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap Bundle with Popper -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Function to generate a random 5-letter code
+  function generateCode() {
+    let code = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    for (let i = 0; i < 5; i++) {
+      code += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return code;
+  }
+  
+  // Event listener for the Short button
+  document.getElementById('shortButton').addEventListener('click', function() {
+    const code = generateCode();
+    document.getElementById('codeDisplay').innerText = code;
+    // Programmatically open the modal using Bootstrap's JavaScript API
+    var myModal = new bootstrap.Modal(document.getElementById('codeModal'));
+    myModal.show();
+  });
+</script>
+</body>
+</html>
